@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { PaymentsModule } from './payments/payments.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { RegistrationsModule } from './registrations/registrations.module';
-import { NotificationsModule } from './notifications/notifications.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -17,7 +16,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGO_URI') || 'mongodb://localhost:27017/techx',
+        uri: configService.get<string>('MONGO_URI') || 'mongodb://127.0.0.1:27017/techx',
       }),
       inject: [ConfigService],
     }),
@@ -27,7 +26,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     PaymentsModule,
     TransactionsModule,
     RegistrationsModule,
-    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

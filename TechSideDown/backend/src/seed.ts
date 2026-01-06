@@ -9,83 +9,83 @@ async function bootstrap() {
 
     const events: CreateEventDto[] = [
         {
-            title: "TECHXPRESSION × CSI HACKATHON",
+            title: "TechXpression × CSI – Hackathon",
             category: "Hackathon",
-            description: "25 Hours | Jan 30–31 | IT Block (1st Floor). AI, Web, Data & Automation-based problem solving.",
+            description: "Reporting Time: 8:00 AM | Team Size: 2–4 Members. 25 Hours Hackathon. AI, Web, Data & Automation-based problem solving.",
             duration: "25 Hours",
             difficulty: "Nightmare",
             date: new Date("2025-01-30"),
-            location: "IT Block (1st Floor)",
+            location: "Whole 1st Floor, IT Building",
             fee: 0
         },
         {
-            title: "AI CRAFT EXPO",
+            title: "AI Exhibition – The NINA Project",
             category: "AI Exhibition",
-            description: "Jan 30–31 | Main Lawn / IoT Lab. Showcase of AI, ML, automation, and research models.",
+            description: "Reporting Time: 8:00 AM | Team Size: 2-4. Showcase of AI, ML, automation, and research models.",
             duration: "2 Days",
             difficulty: "Expert",
             date: new Date("2025-01-30"),
-            location: "Main Lawn / IoT Lab",
+            location: "Placement Cell",
             fee: 250
         },
         {
-            title: "ESCAPE FROM UPSIDE",
+            title: "Escape Room – Vecna Hunt",
             category: "Escape Room",
-            description: "Jan 30–31 | Rooms 208/209. Stranger Things–style puzzle and logic escape challenge (Teams of 3).",
+            description: "Reporting Time: 11:30 AM | Team Size: Max 3 Members. Stranger Things–style puzzle and logic escape challenge.",
             duration: "Timed",
             difficulty: "Hard",
             date: new Date("2025-01-30"),
-            location: "Rooms 208/209",
+            location: "Room 208 / 209",
             fee: 100
         },
         {
-            title: "PALACE ARCADE",
+            title: "E-Sports Tournament – Palace Arcade",
             category: "E-Sports",
-            description: "Jan 30 | NR 309/310. Mobile gaming tournament (TPP Squad, Teams of 4).",
+            description: "Reporting Time: 10:00 AM | Team Size: 4 Players (Squad). Mobile gaming tournament.",
             duration: "1 Day",
             difficulty: "Hard",
             date: new Date("2025-01-30"),
-            location: "NR 309/310",
+            location: "NR 309 / 310",
             fee: 400
         },
         {
-            title: "PROJECT HAWKINS",
+            title: "Upside-Down Coding – Project Hawkins",
             category: "Upside-Down Coding",
-            description: "Jan 31. Solo coding contest with inverted logic and twisted constraints.",
+            description: "Reporting Time: 10:00 AM | Team Size: Solo. Solo coding contest with inverted logic and twisted constraints.",
             duration: "1 Day",
             difficulty: "Nightmare",
             date: new Date("2025-01-31"),
-            location: "TBD",
+            location: "Night College Lab",
             fee: 100
         },
         {
-            title: "CLOSE THE GATES",
+            title: "Capture the Flag – Close the Gates",
             category: "Capture The Flag",
-            description: "Jan 31. Solo cybersecurity challenge (Easy to Hard rounds).",
+            description: "Reporting Time: 11:00 AM | Team Size: Solo. Cybersecurity challenge.",
             duration: "1 Day",
             difficulty: "Expert",
             date: new Date("2025-01-31"),
-            location: "TBD",
+            location: "IoT Lab",
             fee: 100
         },
         {
-            title: "CARNIVAL 011",
+            title: "Techstar Unplugged – Carnival 011",
             category: "Techstar Unplugged",
-            description: "Jan 31 | Main Lawn / Seminar Hall. Cultural events including singing, dance, open mic, and performances.",
+            description: "Reporting Time: 9:30 AM | Solo/Group. Cultural events including singing, dance, open mic.",
             duration: "1 Day",
             difficulty: "Medium",
             date: new Date("2025-01-31"),
-            location: "Main Lawn / Seminar Hall",
+            location: "Seminar Hall",
             fee: 100
         },
         {
-            title: "CAPTURE THE MOMENT",
+            title: "Capture the Moment – Hawkins Through Your Lens",
             category: "Photography",
-            description: "Jan 30-31. Photography event capturing the essence of the fest.",
+            description: "Reporting Time: 10:00 AM | Team Size: Solo. Photography event.",
             duration: "2 Days",
             difficulty: "Easy",
             date: new Date("2025-01-30"),
-            location: "No Location",
+            location: "Entire Campus",
             fee: 50
         }
     ];

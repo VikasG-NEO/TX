@@ -1,11 +1,10 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { getMyRegistrations, getMyTransactions, getMyNotifications, markNotificationAsRead } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { getMyRegistrations, getMyTransactions } from '@/lib/api';
 import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Loader2, LogOut, User, Bell, Info, CheckCircle, AlertTriangle, AlertCircle, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Loader2, LogOut, User } from 'lucide-react';
 import NeonButton from '@/components/NeonButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,25 +21,6 @@ const UserDashboard = () => {
         queryKey: ['myTransactions'],
         queryFn: getMyTransactions,
     });
-
-    const { data: notifications, refetch: refetchNotifications } = useQuery({
-        queryKey: ['notifications'],
-        queryFn: getMyNotifications,
-    });
-
-    const markReadMutation = useMutation({
-        mutationFn: markNotificationAsRead,
-        onSuccess: () => refetchNotifications()
-    });
-
-    const getIcon = (type: string) => {
-        switch (type) {
-            case 'success': return <CheckCircle className="h-5 w-5 text-green-500" />;
-            case 'warning': return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
-            case 'error': return <AlertCircle className="h-5 w-5 text-red-500" />;
-            default: return <Info className="h-5 w-5 text-blue-500" />;
-        }
-    };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -94,12 +74,6 @@ const UserDashboard = () => {
                             <TabsList className="bg-card/50 border border-primary/20">
                                 <TabsTrigger value="registrations">My Registrations</TabsTrigger>
                                 <TabsTrigger value="transactions">Payment History</TabsTrigger>
-                                <TabsTrigger value="notifications" className="relative">
-                                    Notifications
-                                    {notifications?.some((n: any) => !n.isRead && !n.readBy?.includes(user?.userId)) && (
-                                        <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500" />
-                                    )}
-                                </TabsTrigger>
                             </TabsList>
 
                             <TabsContent value="registrations">
@@ -172,64 +146,6 @@ const UserDashboard = () => {
                                                 )}
                                             </TableBody>
                                         </Table>
-                                    </CardContent>
-                                </Card>
-                            </TabsContent>
-
-                            <TabsContent value="notifications">
-                                <Card className="bg-card/50 border-primary/20">
-                                    <CardHeader>
-                                        <CardTitle className="flex items-center gap-2">
-                                            <Bell className="h-5 w-5 text-primary" /> Notifications
-                                        </CardTitle>
-                                        <CardDescription>Updates and messages from the admin.</CardDescription>
-                                    </CardHeader>
-                                    <CardContent className="space-y-4">
-                                        {notifications?.map((notification: any) => {
-                                            const isRead = notification.recipient === 'all'
-                                                ? notification.readBy?.includes(user?.userId || user?._id)
-                                                : notification.isRead;
-
-                                            return (
-                                                <div
-                                                    key={notification._id}
-                                                    className={`p-4 rounded-lg border ${isRead ? 'bg-background/50 border-border' : 'bg-card border-primary/50'} transition-all`}
-                                                >
-                                                    <div className="flex items-start justify-between gap-4">
-                                                        <div className="flex items-start gap-4">
-                                                            <div className="mt-1">{getIcon(notification.type)}</div>
-                                                            <div>
-                                                                <h4 className={`font-semibold ${isRead ? 'text-muted-foreground' : 'text-foreground'}`}>
-                                                                    {notification.title}
-                                                                </h4>
-                                                                <p className={`text-sm mt-1 ${isRead ? 'text-muted-foreground/80' : 'text-muted-foreground'}`}>
-                                                                    {notification.message}
-                                                                </p>
-                                                                <p className="text-xs text-muted-foreground/50 mt-2">
-                                                                    {new Date(notification.createdAt).toLocaleDateString()} {new Date(notification.createdAt).toLocaleTimeString()}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        {!isRead && (
-                                                            <Button
-                                                                variant="ghost"
-                                                                size="sm"
-                                                                onClick={() => markReadMutation.mutate(notification._id)}
-                                                                disabled={markReadMutation.isPending}
-                                                                title="Mark as read"
-                                                            >
-                                                                <Check className="h-4 w-4" />
-                                                            </Button>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                        {(!notifications || notifications.length === 0) && (
-                                            <div className="text-center py-8 text-muted-foreground">
-                                                No notifications yet.
-                                            </div>
-                                        )}
                                     </CardContent>
                                 </Card>
                             </TabsContent>

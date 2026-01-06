@@ -83,6 +83,7 @@ const EventsSection = () => {
         eventName={selectedEvent?.title || ''}
         eventId={selectedEvent?._id || selectedEvent?.id || ''}
         eventFee={selectedEvent?.fee}
+        eventDescription={selectedEvent?.description || ''}
       />
     </section>
   );

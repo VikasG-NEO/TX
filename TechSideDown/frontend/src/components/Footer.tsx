@@ -15,10 +15,10 @@ const Footer = () => {
               TECHXPRESSION
             </h3>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Enter the portal to the ultimate tech experience. 
+              Enter the portal to the ultimate tech experience.
               Where innovation meets the upside down.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex gap-4">
               {[Instagram, Twitter, Linkedin, Youtube].map((Icon, index) => (
@@ -51,7 +51,7 @@ const Footer = () => {
             </ul>
           </div>
 
-    <div>
+          <div>
             <h4 className="font-display text-lg mb-4">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -60,7 +60,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2 text-muted-foreground text-sm">
                 <Phone className="w-4 h-4 text-primary" />
-                +91 9029384
+                +91 9029384041
               </li>
               <li className="flex items-start gap-2 text-muted-foreground text-sm">
                 <MapPin className="w-4 h-4 text-primary mt-0.5" />
