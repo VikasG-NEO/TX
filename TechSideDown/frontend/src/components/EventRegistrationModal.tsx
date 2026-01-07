@@ -13,20 +13,46 @@ interface EventRegistrationModalProps {
   eventName: string;
   eventId: string;
   eventFee?: number;
+  eventDescription?: string;
 }
 
 interface TeamMember {
   name: string;
   email: string;
+  phone: string;
+  college: string;
+  department: string;
+  courseYear: string;
 }
 
-const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee = 0 }: EventRegistrationModalProps) => {
-  const isHackathon = eventName.toLowerCase().includes('demogorgon') || eventName.toLowerCase().includes('hackathon');
+const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee = 0, eventDescription = '' }: EventRegistrationModalProps) => {
+  // Enhanced check: logic looks at both title and description for keywords implying team event
+  // Enhanced check: logic looks at both title and description for keywords implying team event
+  // Extract team size text from description if available
+  const teamSizeMatch = eventDescription.match(/Team Size: ([^.|]+)/i);
+  const teamSizeText = teamSizeMatch ? teamSizeMatch[1].trim() : 'refer to event details';
+
+  // Logic:
+  // 1. Check for explicit "Solo" in description to force Individual.
+  // 2. Otherwise, check for keywords or "Team Size" in description.
+
+  const rawSize = teamSizeText.split(' ')[0].toLowerCase().replace(/[^a-z0-1]/g, '');
+  const isExplicitlySolo = rawSize === 'solo' || rawSize === '1';
+
+  const isTeamEvent = !isExplicitlySolo && (
+    ['hackathon', 'exhibition', 'escape', 'e-sports', 'esports', 'techstar', 'squad', 'group', 'team', 'tournament', 'hunt'].some(k => eventName.toLowerCase().includes(k)) ||
+    eventDescription.toLowerCase().includes('team size')
+  );
+
+  console.log('EventModal Debug:', { eventName, isTeamEvent, teamSizeText, isExplicitlySolo });
+
+
 
   // Individual form data
   const [formData, setFormData] = useState({
     name: '',
     college: '',
+    department: '',
     courseYear: '',
     phone: '',
     email: '',
@@ -39,13 +65,11 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
     leaderEmail: '',
     leaderPhone: '',
     college: '',
+    department: '',
     courseYear: '',
   });
 
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
-    { name: '', email: '' },
-    { name: '', email: '' },
-  ]);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   const [transactionId, setTransactionId] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,6 +103,13 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
     }
   }, []);
 
+  // Reset team members when modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setTeamMembers([]);
+    }
+  }, [isOpen, eventName]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
@@ -102,15 +133,21 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
   };
 
   const addMember = () => {
-    if (teamMembers.length < 3) {
-      setTeamMembers(prev => [...prev, { name: '', email: '' }]);
+    // Parse max team size from the text (e.g. "2-4" -> 4, "4" -> 4)
+    // Default to 4 if not found or complex string
+    const numbers = teamSizeText.match(/\d+/g);
+    const maxSize = numbers ? parseInt(numbers[numbers.length - 1]) : 4;
+    // Current total = Leader (1) + teamMembers.length
+
+    if (teamMembers.length + 1 < maxSize) {
+      setTeamMembers(prev => [...prev, { name: '', email: '', phone: '', college: '', department: '', courseYear: '' }]);
+    } else {
+      toast.error(`Maximum team size is ${maxSize}`);
     }
   };
 
   const removeMember = (index: number) => {
-    if (teamMembers.length > 2) {
-      setTeamMembers(prev => prev.filter((_, i) => i !== index));
-    }
+    setTeamMembers(prev => prev.filter((_, i) => i !== index));
   };
 
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -119,9 +156,9 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (isHackathon) {
+    if (isTeamEvent) {
       // Team validation
-      if (!teamData.teamName || !teamData.leaderName || !teamData.leaderEmail || !teamData.leaderPhone || !teamData.college || !teamData.courseYear) {
+      if (!teamData.teamName || !teamData.leaderName || !teamData.leaderEmail || !teamData.leaderPhone || !teamData.college || !teamData.department || !teamData.courseYear) {
         toast.error('Please fill in all team leader details');
         return;
       }
@@ -134,18 +171,18 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
         return;
       }
       for (let i = 0; i < teamMembers.length; i++) {
-        if (!teamMembers[i].name || !teamMembers[i].email) {
-          toast.error(`Please fill in details for Member ${i + 1}`);
+        if (!teamMembers[i].name || !teamMembers[i].email || !teamMembers[i].phone || !teamMembers[i].college || !teamMembers[i].department || !teamMembers[i].courseYear) {
+          toast.error(`Please fill in all details for Member ${i + 2}`); // i+2 because i=0 is Member 2 in UI, Leader is Member 1
           return;
         }
         if (!validateEmail(teamMembers[i].email)) {
-          toast.error(`Please enter a valid email for Member ${i + 1}`);
+          toast.error(`Please enter a valid email for Member ${i + 2}`);
           return;
         }
       }
     } else {
       // Individual validation
-      if (!formData.name || !formData.college || !formData.courseYear || !formData.phone || !formData.email) {
+      if (!formData.name || !formData.college || !formData.department || !formData.courseYear || !formData.phone || !formData.email) {
         toast.error('Please fill in all fields');
         return;
       }
@@ -174,7 +211,7 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
         transactionId: eventFee > 0 ? transactionId : `FREE-${Date.now()}`
       };
 
-      if (isHackathon) {
+      if (isTeamEvent) {
         await registerForEvent({
           ...commonPayload,
           type: 'TEAM',
@@ -183,6 +220,7 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
           email: teamData.leaderEmail,
           phone: teamData.leaderPhone,
           college: teamData.college,
+          department: teamData.department,
           courseYear: teamData.courseYear,
           members: teamMembers.filter(m => m.name && m.email)
         });
@@ -190,19 +228,20 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
         await registerForEvent({
           ...commonPayload,
           type: 'INDIVIDUAL',
-          leaderName: formData.name, // Mapping name -> leaderName as per schema logic
+          leaderName: formData.name,
           email: formData.email,
           phone: formData.phone,
           college: formData.college,
+          department: formData.department,
           courseYear: formData.courseYear
         });
       }
 
       toast.success(`Successfully registered for ${eventName}!`);
       // Reset forms
-      setFormData({ name: user?.username || '', college: user?.college || '', courseYear: '', phone: '', email: user?.email || '' });
-      setTeamData({ teamName: '', leaderName: user?.username || '', leaderEmail: user?.email || '', leaderPhone: '', college: user?.college || '', courseYear: '' });
-      setTeamMembers([{ name: '', email: '' }, { name: '', email: '' }]);
+      setFormData({ name: user?.username || '', college: user?.college || '', department: '', courseYear: '', phone: '', email: user?.email || '' });
+      setTeamData({ teamName: '', leaderName: user?.username || '', leaderEmail: user?.email || '', leaderPhone: '', college: user?.college || '', department: '', courseYear: '' });
+      setTeamMembers([{ name: '', email: '', phone: '', college: '', department: '', courseYear: '' }, { name: '', email: '', phone: '', college: '', department: '', courseYear: '' }]);
       setTransactionId('');
       onClose();
     } catch (error) {
@@ -247,24 +286,25 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
                   <X className="w-5 h-5" />
                 </button>
                 <h2 className="text-2xl font-display text-primary neon-text-subtle">
-                  {isHackathon ? 'TEAM REGISTRATION' : 'REGISTER'}
+                  {isTeamEvent ? 'TEAM REGISTRATION' : 'REGISTER'}
                 </h2>
                 <div className="flex justify-between items-center mt-1">
                   <p className="text-sm text-muted-foreground font-stranger tracking-wider">
                     {eventName}
                   </p>
+                  <p className="text-[10px] text-gray-500">Mode: {isTeamEvent ? 'Team' : 'Solo'} | Size: {teamSizeText}</p>
                   {eventFee !== undefined && eventFee > 0 && (
                     <span className="text-primary font-bold">₹{eventFee}</span>
                   )}
                 </div>
-                {isHackathon && (
-                  <p className="text-xs text-primary/70 mt-2">Team size: 3-4 members</p>
+                {isTeamEvent && (
+                  <p className="text-xs text-primary/70 mt-2">Team size: {teamSizeText}</p>
                 )}
               </div>
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="relative p-6 space-y-4 max-h-[60vh] overflow-y-auto">
-                {isHackathon ? (
+                {isTeamEvent ? (
                   <>
                     {/* Team Name */}
                     <div className="space-y-2">
@@ -334,8 +374,8 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
                       </div>
                     </div>
 
-                    {/* College & Course */}
-                    <div className="grid grid-cols-2 gap-3">
+                    {/* College & Course & Department */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       <div className="space-y-2">
                         <Label htmlFor="college" className="text-sm text-muted-foreground flex items-center gap-2">
                           <Building className="w-4 h-4 text-primary" />
@@ -347,6 +387,20 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
                           value={teamData.college}
                           onChange={handleTeamChange}
                           placeholder="College name"
+                          className="bg-background/50 border-border focus:border-primary"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="department" className="text-sm text-muted-foreground flex items-center gap-2">
+                          <Building className="w-4 h-4 text-primary" />
+                          Department
+                        </Label>
+                        <Input
+                          id="department"
+                          name="department"
+                          value={teamData.department}
+                          onChange={handleTeamChange}
+                          placeholder="Dept"
                           className="bg-background/50 border-border focus:border-primary"
                         />
                       </div>
@@ -384,32 +438,86 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
 
                       {teamMembers.map((member, index) => (
                         <div key={index} className="border border-border/50 rounded-lg p-3 space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-muted-foreground">Member {index + 1}</span>
-                            {teamMembers.length > 2 && (
+                          <div className="flex items-center justify-between border-b border-border/30 pb-2 mb-2">
+                            <span className="text-sm font-stranger text-primary tracking-wider">MEMBER {(index + 2).toString().padStart(2, '0')}</span> {/* index+2 because index 0 is Member 2 in existing logic, Leader is Member 1 */}
+                            {teamMembers.length > 0 && ( /* Always allow removing added members if needed, logic adjustment below */
                               <button
                                 type="button"
                                 onClick={() => removeMember(index)}
-                                className="text-muted-foreground hover:text-primary transition-colors"
+                                className="text-muted-foreground hover:text-red-500 transition-colors"
                               >
                                 <Minus className="w-4 h-4" />
                               </button>
                             )}
                           </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <Input
-                              value={member.name}
-                              onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
-                              placeholder="Name"
-                              className="bg-background/50 border-border focus:border-primary text-sm"
-                            />
-                            <Input
-                              type="email"
-                              value={member.email}
-                              onChange={(e) => handleMemberChange(index, 'email', e.target.value)}
-                              placeholder="Email"
-                              className="bg-background/50 border-border focus:border-primary text-sm"
-                            />
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {/* Full Name */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">Full Name</Label>
+                              <Input
+                                value={member.name}
+                                onChange={(e) => handleMemberChange(index, 'name', e.target.value)}
+                                placeholder="Full Name"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
+
+                            {/* College Name */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">College Name</Label>
+                              <Input
+                                value={member.college}
+                                onChange={(e) => handleMemberChange(index, 'college', e.target.value)}
+                                placeholder="College Name"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
+
+                            {/* Department */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">Department</Label>
+                              <Input
+                                value={member.department}
+                                onChange={(e) => handleMemberChange(index, 'department', e.target.value)}
+                                placeholder="Department"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
+
+                            {/* Year / Semester */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">Year / Semester</Label>
+                              <Input
+                                value={member.courseYear}
+                                onChange={(e) => handleMemberChange(index, 'courseYear', e.target.value)}
+                                placeholder="Year / Semester"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
+
+                            {/* Contact Number */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">Contact Number</Label>
+                              <Input
+                                value={member.phone}
+                                onChange={(e) => handleMemberChange(index, 'phone', e.target.value)}
+                                placeholder="Contact Number"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
+
+                            {/* Email ID */}
+                            <div className="space-y-1">
+                              <Label className="text-xs text-muted-foreground">Email ID</Label>
+                              <Input
+                                type="email"
+                                value={member.email}
+                                onChange={(e) => handleMemberChange(index, 'email', e.target.value)}
+                                placeholder="Email ID"
+                                className="bg-background/50 border-border focus:border-primary text-sm h-9"
+                              />
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -444,6 +552,21 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
                         value={formData.college}
                         onChange={handleChange}
                         placeholder="Enter your college name"
+                        className="bg-background/50 border-border focus:border-primary"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="department" className="text-sm text-muted-foreground flex items-center gap-2">
+                        <Building className="w-4 h-4 text-primary" />
+                        Department
+                      </Label>
+                      <Input
+                        id="department"
+                        name="department"
+                        value={formData.department}
+                        onChange={handleChange}
+                        placeholder="Department"
                         className="bg-background/50 border-border focus:border-primary"
                       />
                     </div>
@@ -545,7 +668,7 @@ const EventRegistrationModal = ({ isOpen, onClose, eventName, eventId, eventFee 
                     className="w-full"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Registering...' : isHackathon ? 'Register Team' : 'Submit Registration'}
+                    {isSubmitting ? 'Registering...' : isTeamEvent ? 'Register Team' : 'Submit Registration'}
                   </NeonButton>
                 </div>
               </form>

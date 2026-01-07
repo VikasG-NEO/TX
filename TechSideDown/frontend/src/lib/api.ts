@@ -28,7 +28,13 @@ export const login = async (credentials: any) => {
     const response = await api.post('/auth/login', credentials);
     if (response.data.access_token) {
         localStorage.setItem('token', response.data.access_token);
-        localStorage.setItem('user', JSON.stringify(response.data)); // Storing basic user info if returned
+        // Store strictly the user object which we now return from backend
+        if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+        } else {
+            // Fallback if backend not updated immediately or behaves differently
+            localStorage.setItem('user', JSON.stringify(response.data));
+        }
     }
     return response.data;
 };
@@ -54,22 +60,6 @@ export const getMyRegistrations = async () => {
 
 export const getMyTransactions = async () => {
     const response = await api.get('/transactions/my-transactions');
-    return response.data;
-};
-
-// Notifications API
-export const createNotification = async (data: any) => {
-    const response = await api.post('/notifications', data);
-    return response.data;
-};
-
-export const getMyNotifications = async () => {
-    const response = await api.get('/notifications/my-notifications');
-    return response.data;
-};
-
-export const markNotificationAsRead = async (id: string) => {
-    const response = await api.patch(`/notifications/${id}/read`);
     return response.data;
 };
 

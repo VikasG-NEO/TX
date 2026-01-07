@@ -6,7 +6,7 @@ import NeonButton from './NeonButton';
 const iconMap: Record<string, LucideIcon> = {
   "Hackathon": Code,
   "AI Exhibition": Brain,
-  "Escape Room": Gamepad2,
+  "Vecna Hunt": Gamepad2,
   "E-Sports": Trophy,
   "Upside-Down Coding": Code,
   "Capture The Flag": Brain,

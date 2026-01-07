@@ -15,8 +15,8 @@ const features = [
   },
   {
     icon: Globe,
-    title: "Escape From Upside",
-    description: "A pop-culture themed escape room experience with puzzles, clues, and logic inspired by a mysterious upside-down world."
+    title: "Vecna Hunt  ",
+    description: "Immersive escape room room & puzzle Based challenge."
   },
   {
     icon: Users,
@@ -33,7 +33,7 @@ const AboutSection = () => {
     <section ref={ref} id="about" className="relative py-32 px-4 overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-      
+
       {/* Decorative Lines */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
@@ -51,7 +51,7 @@ const AboutSection = () => {
             ABOUT THE TSƎℲ
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Step through the portal into a world where technology defies reality. 
+            Step through the portal into a world where technology defies reality.
             TechXpression brings together the brightest minds to explore the unknown.
           </p>
         </motion.div>
@@ -68,7 +68,7 @@ const AboutSection = () => {
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-primary/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               {/* Icon */}
               <div className="relative mb-4">
                 <feature.icon className="w-10 h-10 text-primary group-hover:animate-pulse" />

@@ -1,43 +1,17 @@
 import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { getRegistrations, getTransactions, createNotification } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { getRegistrations, getTransactions } from '@/lib/api';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Loader2, Send } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
-import NeonButton from '@/components/NeonButton';
 
 const AdminDashboard = () => {
     const { data: registrations, isLoading: isLoadingRegs } = useQuery({
         queryKey: ['registrations'],
         queryFn: getRegistrations,
     });
-
-    const [notificationForm, setNotificationForm] = useState({
-        title: '',
-        message: '',
-        type: 'info',
-        recipient: 'all'
-    });
-
-    const sendNotification = useMutation({
-        mutationFn: createNotification,
-        onSuccess: () => {
-            alert('Notification sent successfully!');
-            setNotificationForm({ title: '', message: '', type: 'info', recipient: 'all' });
-        },
-        onError: () => alert('Failed to send notification')
-    });
-
-    const handleSendNotification = (e: React.FormEvent) => {
-        e.preventDefault();
-        sendNotification.mutate(notificationForm);
-    };
 
     const { data: transactions, isLoading: isLoadingTxns } = useQuery({
         queryKey: ['transactions'],
@@ -82,7 +56,6 @@ const AdminDashboard = () => {
                     <TabsList className="bg-card/50 border border-primary/20">
                         <TabsTrigger value="registrations">Registrations</TabsTrigger>
                         <TabsTrigger value="transactions">Transactions</TabsTrigger>
-                        <TabsTrigger value="notifications">Notifications</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="registrations">
@@ -163,61 +136,6 @@ const AdminDashboard = () => {
                                         )}
                                     </TableBody>
                                 </Table>
-                            </CardContent>
-                        </Card>
-                    </TabsContent>
-
-                    <TabsContent value="notifications">
-                        <Card className="bg-card/50 border-primary/20 max-w-2xl mx-auto">
-                            <CardHeader>
-                                <CardTitle>Send Notification</CardTitle>
-                                <CardDescription>Send a message to all users or a specific user.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <form onSubmit={handleSendNotification} className="space-y-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="title">Title</Label>
-                                        <Input
-                                            id="title"
-                                            value={notificationForm.title}
-                                            onChange={(e) => setNotificationForm({ ...notificationForm, title: e.target.value })}
-                                            placeholder="Notification Title"
-                                            required
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="type">Type</Label>
-                                        <Select
-                                            value={notificationForm.type}
-                                            onValueChange={(value) => setNotificationForm({ ...notificationForm, type: value })}
-                                        >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select type" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="info">Info</SelectItem>
-                                                <SelectItem value="success">Success</SelectItem>
-                                                <SelectItem value="warning">Warning</SelectItem>
-                                                <SelectItem value="error">Error</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="message">Message</Label>
-                                        <Textarea
-                                            id="message"
-                                            value={notificationForm.message}
-                                            onChange={(e) => setNotificationForm({ ...notificationForm, message: e.target.value })}
-                                            placeholder="Type your message here..."
-                                            required
-                                            className="min-h-[100px]"
-                                        />
-                                    </div>
-                                    <NeonButton type="submit" disabled={sendNotification.isPending} className="w-full">
-                                        {sendNotification.isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Send className="mr-2 h-4 w-4" />}
-                                        Send Notification
-                                    </NeonButton>
-                                </form>
                             </CardContent>
                         </Card>
                     </TabsContent>

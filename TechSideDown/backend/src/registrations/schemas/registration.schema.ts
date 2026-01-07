@@ -32,8 +32,27 @@ export class Registration {
     @Prop({ required: true })
     courseYear: string;
 
-    @Prop({ type: [{ name: String, email: String }] })
-    members: { name: string; email: string }[];
+    @Prop({ required: false })
+    department: string;
+
+    @Prop({
+        type: [{
+            name: String,
+            email: String,
+            phone: String,
+            college: String,
+            department: String,
+            courseYear: String
+        }]
+    })
+    members: {
+        name: string;
+        email: string;
+        phone?: string;
+        college?: string;
+        department?: string;
+        courseYear?: string;
+    }[];
 
     @Prop({ required: false })
     userId: string;
