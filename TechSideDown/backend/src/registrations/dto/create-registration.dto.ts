@@ -7,6 +7,22 @@ class TeamMemberDto {
 
     @IsEmail()
     email: string;
+
+    @IsString()
+    @IsOptional()
+    phone?: string;
+
+    @IsString()
+    @IsOptional()
+    college?: string;
+
+    @IsString()
+    @IsOptional()
+    department?: string;
+
+    @IsString()
+    @IsOptional()
+    courseYear?: string;
 }
 
 export class CreateRegistrationDto {
@@ -34,6 +50,10 @@ export class CreateRegistrationDto {
 
     @IsString()
     college: string;
+
+    @IsString()
+    @IsOptional()
+    department?: string;
 
     @IsString()
     courseYear: string;

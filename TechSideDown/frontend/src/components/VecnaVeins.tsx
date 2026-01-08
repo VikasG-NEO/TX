@@ -7,20 +7,20 @@ const VecnaVeins = memo(() => {
       let path = `M ${startX} ${startY}`;
       let x = startX;
       let y = startY;
-      
+
       for (let i = 0; i < length; i++) {
         const variation = (i % 3) * 10 - 10;
-        
+
         switch (direction) {
           case 'up': y -= 30; x += variation; break;
           case 'down': y += 30; x += variation; break;
           case 'left': x -= 30; y += variation; break;
           case 'right': x += 30; y += variation; break;
         }
-        
+
         path += ` L ${x} ${y}`;
       }
-      
+
       return path;
     };
 
@@ -63,7 +63,12 @@ const VecnaVeins = memo(() => {
             strokeLinecap="round"
             filter="url(#vein-glow)"
             className="animate-vein-pulse"
-            style={{ animationDelay: `${vein.delay}s` }}
+            // Force GPU layer for the path
+            style={{
+              animationDelay: `${vein.delay}s`,
+              willChange: 'opacity, stroke-dashoffset',
+              transform: 'translate3d(0,0,0)'
+            }}
             opacity="0.5"
           />
         ))}

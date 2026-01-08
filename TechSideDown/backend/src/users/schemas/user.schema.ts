@@ -25,9 +25,6 @@ export class User {
 
     @Prop({ type: [{ type: Types.ObjectId, ref: 'Event' }] })
     registeredEvents: Types.ObjectId[];
-
-    @Prop({ default: 0 })
-    points: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

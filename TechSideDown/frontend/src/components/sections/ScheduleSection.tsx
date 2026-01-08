@@ -16,14 +16,14 @@ const schedule: Record<string, Array<{
   day1: [
     { time: "09:00", title: "Techxpression × CSI – Hackathon  ", venue: "1st Floor IT Building", type: "Hackathon (25 hours)" },
     { time: "10:30", title: "AI Exhibition ", venue: "Main Lawn / IOT Lab / Placement Cell", type: " The NINA Project" },
-    { time: "12:00", title: "Escape Room ", venue: "Venue IT BLDG 208/209", type: "Escape from Upside  " },
+    { time: "12:00", title: "Vecna Hunt ", venue: "Venue IT BLDG 208/209", type: "Escape Room " },
     { time: "14:00", title: "E-Sports Tournament ", venue: "Venue : NR 310 /309", type: "Palace Arcade" },
     { time: "16:00", title: "Upside-Down Coding ", venue: "Quiz Hall", type: "Quiz" },
-  
+
   ],
   day2: [
-    
-    { time: "11:00", title: "Escape Room ", venue: "Venue IT BLDG 208/209", type: "Escape from Upside  " },
+
+
     { time: "15:00", title: "Capture the Flag ", venue: "Main Arena", type: "Close the Gates" },
     { time: "17:00", title: "Upside-Down Coding ", venue: "Bvoc Lab", type: "Carnival 011  " },
     { time: "19:00", title: "Techstar Unplugged ", venue: "Main Lawn / Seminar Hall", type: "Ceremony" },
@@ -80,11 +80,10 @@ const ScheduleSection = () => {
             <button
               key={day.id}
               onClick={() => setActiveDay(day.id)}
-              className={`px-6 py-3 rounded-lg font-display text-lg transition-all duration-300 ${
-                activeDay === day.id
-                  ? 'bg-primary text-primary-foreground neon-box'
-                  : 'bg-card border border-border hover:border-primary/50 text-foreground'
-              }`}
+              className={`px-6 py-3 rounded-lg font-display text-lg transition-all duration-300 ${activeDay === day.id
+                ? 'bg-primary text-primary-foreground neon-box'
+                : 'bg-card border border-border hover:border-primary/50 text-foreground'
+                }`}
             >
               <div>{day.label}</div>
               <div className="text-xs font-stranger opacity-70">{day.date}</div>
@@ -103,9 +102,8 @@ const ScheduleSection = () => {
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative flex items-center gap-4 mb-8 ${
-                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
+              className={`relative flex items-center gap-4 mb-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                }`}
             >
               {/* Timeline Dot */}
               <div className="absolute left-4 md:left-1/2 w-3 h-3 -translate-x-1/2 bg-primary rounded-full neon-box z-10" />

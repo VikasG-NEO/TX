@@ -29,10 +29,10 @@ const events = [
   {
     id: 3,
     icon: Gamepad2,
-    title: "ESCAPE FROM UPSIDE",
-    category: "Escape Room",
-    description: "Jan 30–31 | Rooms 208/209. Puzzle challenge (Teams of 3).",
-    difficulty: "Hard"
+    title: "Escape Room",
+    category: "Vecna Hunt",
+    description: "Jan 30–31 | Rooms 208/209.  (Teams of 2).",
+    difficulty: "Medium"
   },
   {
     id: 4,
@@ -48,7 +48,7 @@ const events = [
     title: "PROJECT HAWKINS",
     category: "Upside-Down Coding",
     description: "Jan 31. Solo coding with inverted logic.",
-    difficulty: "Nightmare"
+    difficulty: "medium"
   },
   {
     id: 6,
@@ -56,7 +56,7 @@ const events = [
     title: "CLOSE THE GATES",
     category: "Capture The Flag",
     description: "Jan 31. Solo cybersecurity challenge.",
-    difficulty: "Expert"
+    difficulty: "Hard"
   },
   {
     id: 7,

@@ -1,6 +1,8 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 import { Cpu, Zap, Globe, Users } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { getRegistrationCount, getEvents } from '@/lib/api';
 
 const features = [
   {
@@ -15,8 +17,8 @@ const features = [
   },
   {
     icon: Globe,
-    title: "Escape From Upside",
-    description: "A pop-culture themed escape room experience with puzzles, clues, and logic inspired by a mysterious upside-down world."
+    title: "Vecna Hunt  ",
+    description: "Immersive escape room room & puzzle Based challenge."
   },
   {
     icon: Users,
@@ -29,11 +31,22 @@ const AboutSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
+  const { data: registrationData } = useQuery({
+    queryKey: ['registrationCount'],
+    queryFn: getRegistrationCount,
+    refetchInterval: 5000,
+  });
+
+  const { data: events } = useQuery({
+    queryKey: ['events'],
+    queryFn: getEvents,
+  });
+
   return (
     <section ref={ref} id="about" className="relative py-32 px-4 overflow-hidden">
       {/* Background Effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-      
+
       {/* Decorative Lines */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
@@ -51,7 +64,7 @@ const AboutSection = () => {
             ABOUT THE TSƎℲ
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Step through the portal into a world where technology defies reality. 
+            Step through the portal into a world where technology defies reality.
             TechXpression brings together the brightest minds to explore the unknown.
           </p>
         </motion.div>
@@ -68,7 +81,7 @@ const AboutSection = () => {
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-primary/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               {/* Icon */}
               <div className="relative mb-4">
                 <feature.icon className="w-10 h-10 text-primary group-hover:animate-pulse" />
@@ -97,14 +110,19 @@ const AboutSection = () => {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
           {[
-            { value: "5000+", label: "Attendees" },
-            { value: "50+", label: "Events" },
-            { value: "3", label: "Days" },
-            { value: "∞", label: "Memories" }
+            { value: registrationData?.count || 0, suffix: "+", label: "Attendees" },
+            { value: events?.length || 0, suffix: "+", label: "Events" },
+            { value: 2, suffix: "", label: "Days" },
+            { value: 0, suffix: "∞", label: "Memories", isInfinity: true }
           ].map((stat, index) => (
             <div key={stat.label} className="text-center">
-              <div className="text-4xl md:text-5xl font-display text-primary neon-text-subtle">
-                {stat.value}
+              <div className="text-4xl md:text-5xl font-display text-primary neon-text-subtle flex justify-center items-center gap-1">
+                {stat.isInfinity ? (
+                  <span>∞</span>
+                ) : (
+                  <Counter value={stat.value} />
+                )}
+                {!stat.isInfinity && stat.suffix}
               </div>
               <div className="text-sm font-stranger tracking-wider text-muted-foreground mt-2">
                 {stat.label}
@@ -116,5 +134,27 @@ const AboutSection = () => {
     </section>
   );
 };
+
+const Counter = ({ value }: { value: number }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (isInView && ref.current) {
+      const node = ref.current;
+      const controls = animate(0, value, {
+        duration: 2.5,
+        ease: "easeOut",
+        onUpdate(v) {
+          node.textContent = Math.round(v).toString();
+        },
+      });
+      return () => controls.stop();
+    }
+  }, [isInView, value]);
+
+  return <span ref={ref}>0</span>;
+};
+
 
 export default AboutSection;

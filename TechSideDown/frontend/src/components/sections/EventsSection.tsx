@@ -57,9 +57,9 @@ const EventsSection = () => {
 
         {/* Events Grid */}
         {isLoading ? (
-          <div className="text-center text-white"></div>
+          <div className="text-center text-white">Loading events...</div>
         ) : error ? (
-          <div className="text-center text-red-500"></div>
+          <div className="text-center text-red-500">Error loading events: {(error as any).message}</div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events?.map((event: any, index: number) => (
@@ -83,6 +83,8 @@ const EventsSection = () => {
         eventName={selectedEvent?.title || ''}
         eventId={selectedEvent?._id || selectedEvent?.id || ''}
         eventFee={selectedEvent?.fee}
+        eventDescription={selectedEvent?.description || ''}
+        whatsappLink={selectedEvent?.whatsappLink}
       />
     </section>
   );

@@ -26,12 +26,7 @@ const Login = () => {
         try {
             await login(formData);
             toast.success('Login successful!');
-            const user = JSON.parse(localStorage.getItem('user') || '{}');
-            if (user.role === 'admin') {
-                navigate('/admin');
-            } else {
-                navigate('/dashboard');
-            }
+            window.location.href = '/#events';
         } catch (error) {
             console.error(error);
             toast.error('Invalid credentials');

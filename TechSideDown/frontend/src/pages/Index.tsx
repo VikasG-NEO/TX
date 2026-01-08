@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import IntroAnimation from '@/components/IntroAnimation';
+import FlyerModal from '@/components/FlyerModal';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -16,22 +17,25 @@ import MindFlayer from '@/components/MindFlayer';
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
+  const [showFlyer, setShowFlyer] = useState(false);
 
   return (
     <>
       {showIntro && (
-        <IntroAnimation onComplete={() => setShowIntro(false)} />
+        <IntroAnimation onComplete={() => { setShowIntro(false); setShowFlyer(true); }} />
       )}
-      
+
+      <FlyerModal isOpen={showFlyer} onClose={() => setShowFlyer(false)} />
+
       <div className={`min-h-screen bg-background transition-opacity duration-500 ${showIntro ? 'opacity-0' : 'opacity-100'}`}>
         {/* Stranger Things Atmosphere Elements */}
         <MindFlayer />
         <VecnaVeins />
         <AnimatedVines />
         <StrangerThingsCharacters />
-        
+
         <Navbar />
-        
+
         <main className="relative z-10">
           <HeroSection />
           <AboutSection />
@@ -42,7 +46,7 @@ const Index = () => {
         </main>
 
         <Footer />
-        
+
         <AudioPlayer />
       </div>
     </>

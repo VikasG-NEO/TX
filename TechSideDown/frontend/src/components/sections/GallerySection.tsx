@@ -2,15 +2,17 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
+// Import local gallery images
+import gallery2 from '@/assets/gallery/gallery_2.jpg';
+import gallery3 from '@/assets/gallery/gallery_3.jpg';
+import gallery4 from '@/assets/gallery/gallery_4.jpg';
+import gallery5 from '@/assets/gallery/gallery_5.jpg';
+
 const galleryImages = [
-  { id: 1, src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600", alt: "Tech conference crowd" },
-  { id: 2, src: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600", alt: "Hackathon coding" },
-  { id: 3, src: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600", alt: "Team collaboration" },
-  { id: 4, src: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600", alt: "Stage presentation" },
-  { id: 5, src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600", alt: "Night event" },
-  { id: 6, src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600", alt: "Tech workspace" },
-  { id: 7, src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600", alt: "Workshop session" },
-  { id: 8, src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600", alt: "Group discussion" },
+  { id: 1, src: gallery2, alt: "TechXpression Event Highlight 1" },
+  { id: 2, src: gallery3, alt: "TechXpression Event Highlight 2" },
+  { id: 3, src: gallery4, alt: "TechXpression Event Highlight 3" },
+  { id: 4, src: gallery5, alt: "TechXpression Event Highlight 4" },
 ];
 
 const GallerySection = () => {
@@ -49,22 +51,20 @@ const GallerySection = () => {
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => setSelectedImage(image)}
-              className={`relative group cursor-pointer overflow-hidden rounded-lg ${
-                index === 0 || index === 5 ? 'md:col-span-2 md:row-span-2' : ''
-              }`}
+              className="relative group cursor-pointer overflow-hidden rounded-lg"
             >
               <img
                 src={image.src}
                 alt={image.alt}
                 className="w-full h-full object-cover aspect-square transition-transform duration-500 group-hover:scale-110"
               />
-              
+
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
+
               {/* Glitch Effect on Hover */}
               <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 group-hover:glitch transition-opacity" />
-              
+
               {/* Red Tint */}
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
 

@@ -31,6 +31,9 @@ export class Event {
 
     @Prop()
     location: string;
+
+    @Prop()
+    whatsappLink: string;
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);

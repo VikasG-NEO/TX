@@ -77,7 +77,12 @@
     font-family: 'Orbitron', sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.1em;
   }
@@ -98,35 +103,34 @@
   text-transform: uppercase;
   color: hsl(var(--background));
   -webkit-text-stroke: 1.5px hsl(var(--primary));
-  text-stroke: 1.5px hsl(var(--primary));
   paint-order: stroke fill;
-  text-shadow: 
+  text-shadow:
     0 0 10px hsl(var(--neon-red) / 0.6),
-    0 0 20px hsl(var(--neon-red) / 0.4),
-    0 0 40px hsl(var(--neon-red) / 0.2),
-    0 0 60px hsl(var(--neon-red) / 0.1);
+    0 0 20px hsl(var(--neon-red) / 0.4);
   animation: text-flicker 4s ease-in-out infinite;
+  will-change: text-shadow;
 }
 
 @keyframes text-flicker {
-  0%, 100% {
-    text-shadow: 
+
+  0%,
+  100% {
+    text-shadow:
       0 0 10px hsl(var(--neon-red) / 0.6),
-      0 0 20px hsl(var(--neon-red) / 0.4),
-      0 0 40px hsl(var(--neon-red) / 0.2);
+      0 0 20px hsl(var(--neon-red) / 0.4);
   }
+
   50% {
-    text-shadow: 
+    text-shadow:
       0 0 15px hsl(var(--neon-red) / 0.8),
       0 0 30px hsl(var(--neon-red) / 0.6),
-      0 0 50px hsl(var(--neon-red) / 0.4),
-      0 0 70px hsl(var(--neon-red) / 0.2);
+      0 0 50px hsl(var(--neon-red) / 0.4);
   }
 }
 
 /* Neon Glow Effects */
 .neon-text {
-  text-shadow: 
+  text-shadow:
     0 0 5px hsl(var(--neon-red)),
     0 0 10px hsl(var(--neon-red)),
     0 0 20px hsl(var(--neon-red)),
@@ -135,14 +139,14 @@
 }
 
 .neon-text-subtle {
-  text-shadow: 
+  text-shadow:
     0 0 5px hsl(var(--neon-red)),
     0 0 10px hsl(var(--neon-red) / 0.8),
     0 0 20px hsl(var(--neon-red) / 0.5);
 }
 
 .neon-box {
-  box-shadow: 
+  box-shadow:
     0 0 5px hsl(var(--neon-red)),
     0 0 10px hsl(var(--neon-red)),
     0 0 20px hsl(var(--neon-red) / 0.5),
@@ -151,7 +155,7 @@
 
 .neon-border {
   border: 1px solid hsl(var(--neon-red));
-  box-shadow: 
+  box-shadow:
     0 0 5px hsl(var(--neon-red)),
     0 0 10px hsl(var(--neon-red) / 0.5),
     inset 0 0 5px hsl(var(--neon-red) / 0.1);
@@ -168,22 +172,27 @@
     transform: translate(0);
     opacity: 1;
   }
+
   20% {
     transform: translate(-2px, 2px);
     opacity: 0.8;
   }
+
   40% {
     transform: translate(-2px, -2px);
     opacity: 1;
   }
+
   60% {
     transform: translate(2px, 2px);
     opacity: 0.8;
   }
+
   80% {
     transform: translate(2px, -2px);
     opacity: 1;
   }
+
   100% {
     transform: translate(0);
     opacity: 1;
@@ -194,18 +203,23 @@
   0% {
     transform: skew(0deg);
   }
+
   20% {
     transform: skew(-2deg);
   }
+
   40% {
     transform: skew(2deg);
   }
+
   60% {
     transform: skew(-1deg);
   }
+
   80% {
     transform: skew(1deg);
   }
+
   100% {
     transform: skew(0deg);
   }
@@ -221,15 +235,43 @@
 
 /* Flicker Effect */
 @keyframes flicker {
-  0%, 100% { opacity: 1; }
-  41% { opacity: 1; }
-  42% { opacity: 0.8; }
-  43% { opacity: 1; }
-  45% { opacity: 0.3; }
-  46% { opacity: 1; }
-  49% { opacity: 1; }
-  50% { opacity: 0.5; }
-  51% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  41% {
+    opacity: 1;
+  }
+
+  42% {
+    opacity: 0.8;
+  }
+
+  43% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 0.3;
+  }
+
+  46% {
+    opacity: 1;
+  }
+
+  49% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  51% {
+    opacity: 1;
+  }
 }
 
 .flicker {
@@ -242,10 +284,12 @@
     transform: translateY(0) scale(1);
     opacity: 0.3;
   }
+
   50% {
     transform: translateY(-20px) scale(1.1);
     opacity: 0.5;
   }
+
   100% {
     transform: translateY(0) scale(1);
     opacity: 0.3;
@@ -264,9 +308,12 @@
 }
 
 @keyframes float-up {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) rotate(180deg);
   }
+
   50% {
     transform: translateY(-10px) rotate(180deg);
   }
@@ -280,14 +327,17 @@
 
 /* Pulse Glow */
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 
+
+  0%,
+  100% {
+    box-shadow:
       0 0 5px hsl(var(--neon-red)),
       0 0 10px hsl(var(--neon-red)),
       0 0 20px hsl(var(--neon-red) / 0.5);
   }
+
   50% {
-    box-shadow: 
+    box-shadow:
       0 0 10px hsl(var(--neon-red)),
       0 0 20px hsl(var(--neon-red)),
       0 0 40px hsl(var(--neon-red) / 0.8),
@@ -304,13 +354,11 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    hsl(0 0% 0% / 0.1) 2px,
-    hsl(0 0% 0% / 0.1) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      hsl(0 0% 0% / 0.1) 2px,
+      hsl(0 0% 0% / 0.1) 4px);
   pointer-events: none;
   z-index: 10;
 }
@@ -320,15 +368,19 @@
   0% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-1px);
   }
+
   50% {
     transform: translateX(1px);
   }
+
   75% {
     transform: translateX(-0.5px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -345,10 +397,12 @@
     transform: translateY(20px) scale(0.8);
     filter: blur(10px);
   }
+
   50% {
     opacity: 0.5;
     filter: blur(5px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -389,15 +443,35 @@
 
 /* Performance-optimized animations */
 @keyframes mind-flayer-sway {
-  0%, 100% { transform: translate(-50%, -20%) rotate(0deg) scale(1); }
-  50% { transform: translate(-50%, -20%) rotate(3deg) scale(1.01); }
+
+  0%,
+  100% {
+    transform: translate(-50%, -20%) rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -20%) rotate(3deg) scale(1.01);
+  }
 }
 
 @keyframes lightning-pulse {
-  0%, 100% { opacity: 0; }
-  25% { opacity: 0.3; }
-  50% { opacity: 0; }
-  75% { opacity: 0.2; }
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.2;
+  }
 }
 
 @keyframes intro-particle {
@@ -405,12 +479,15 @@
     transform: translateY(100vh);
     opacity: 0;
   }
+
   10% {
     opacity: 0.7;
   }
+
   90% {
     opacity: 0.7;
   }
+
   100% {
     transform: translateY(-100vh);
     opacity: 0;
@@ -418,14 +495,34 @@
 }
 
 @keyframes intro-flicker {
-  0%, 100% { opacity: 0; transform: scaleX(0.8); }
-  50% { opacity: 0.3; transform: scaleX(1); }
-  75% { opacity: 0.1; transform: scaleX(0.9); }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0.8);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scaleX(1);
+  }
+
+  75% {
+    opacity: 0.1;
+    transform: scaleX(0.9);
+  }
 }
 
 @keyframes intro-vein {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .animate-intro-particle {
@@ -443,23 +540,55 @@
 }
 
 @keyframes particle-float {
-  0%, 100% { transform: translateY(0) scale(0); opacity: 0; }
-  50% { transform: translateY(-30px) scale(1); opacity: 0.6; }
+
+  0%,
+  100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(-30px) scale(1);
+    opacity: 0.6;
+  }
 }
 
 @keyframes vine-sway {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 @keyframes vine-sway-horizontal {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
 }
 
 @keyframes vein-pulse {
-  0%, 100% { opacity: 0; stroke-dashoffset: 1000; }
-  50% { opacity: 0.6; stroke-dashoffset: 0; }
+
+  0%,
+  100% {
+    opacity: 0;
+    stroke-dashoffset: 1000;
+  }
+
+  50% {
+    opacity: 0.6;
+    stroke-dashoffset: 0;
+  }
 }
 
 .animate-mind-flayer {

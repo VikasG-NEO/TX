@@ -20,11 +20,4 @@ export class CreateUserDto {
     @IsArray()
     @IsString({ each: true })
     team: string[];
-
-    @IsOptional()
-    @IsString()
-    role?: string;
-
-    @IsOptional()
-    points?: number;
 }

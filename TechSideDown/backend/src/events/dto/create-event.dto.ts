@@ -38,4 +38,8 @@ export class CreateEventDto {
     @IsOptional()
     @IsString()
     location?: string;
+
+    @IsOptional()
+    @IsString()
+    whatsappLink?: string;
 }

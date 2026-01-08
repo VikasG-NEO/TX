@@ -9,11 +9,12 @@ const AnimatedVines = memo(() => {
         <img
           src={upsideDownVines}
           alt=""
-          className="w-full h-[200px] object-cover object-bottom opacity-40 animate-vine-sway"
+          className="w-full h-[200px] object-cover object-bottom opacity-40 animate-vine-sway will-change-transform"
           style={{
             filter: 'brightness(0.4) saturate(1.5)',
             maskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to bottom, black 20%, transparent 100%)',
+            transform: 'translate3d(0,0,0)',
           }}
         />
       </div>
@@ -23,11 +24,12 @@ const AnimatedVines = memo(() => {
         <img
           src={upsideDownVines}
           alt=""
-          className="w-full h-[200px] object-cover object-top opacity-30 rotate-180 animate-vine-sway-delayed"
+          className="w-full h-[200px] object-cover object-top opacity-30 rotate-180 animate-vine-sway-delayed will-change-transform"
           style={{
             filter: 'brightness(0.4) saturate(1.5)',
             maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
+            transform: 'translate3d(0,0,0)',
           }}
         />
       </div>
@@ -37,11 +39,12 @@ const AnimatedVines = memo(() => {
         <img
           src={upsideDownVines}
           alt=""
-          className="h-full w-[200px] object-cover object-right opacity-30 -rotate-90 animate-vine-sway-horizontal"
+          className="h-full w-[200px] object-cover object-right opacity-30 -rotate-90 animate-vine-sway-horizontal will-change-transform"
           style={{
             filter: 'brightness(0.4) saturate(1.5)',
             maskImage: 'linear-gradient(to right, black 20%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to right, black 20%, transparent 100%)',
+            transform: 'translate3d(0,0,0)',
           }}
         />
       </div>
@@ -51,11 +54,12 @@ const AnimatedVines = memo(() => {
         <img
           src={upsideDownVines}
           alt=""
-          className="h-full w-[200px] object-cover object-left opacity-30 rotate-90 animate-vine-sway-horizontal-delayed"
+          className="h-full w-[200px] object-cover object-left opacity-30 rotate-90 animate-vine-sway-horizontal-delayed will-change-transform"
           style={{
             filter: 'brightness(0.4) saturate(1.5)',
             maskImage: 'linear-gradient(to left, black 20%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to left, black 20%, transparent 100%)',
+            transform: 'translate3d(0,0,0)',
           }}
         />
       </div>
