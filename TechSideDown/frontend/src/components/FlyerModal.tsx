@@ -16,7 +16,7 @@ const FlyerModal = ({ isOpen, onClose }: FlyerModalProps) => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="relative w-full max-w-lg bg-zinc-900 border border-red-500/30 rounded-lg p-2 shadow-[0_0_30px_rgba(220,38,38,0.3)]"
+                        className="relative w-full max-w-4xl bg-zinc-900 border border-red-500/30 rounded-lg p-2 shadow-[0_0_30px_rgba(220,38,38,0.3)]"
                     >
                         <button
                             onClick={onClose}
@@ -25,12 +25,15 @@ const FlyerModal = ({ isOpen, onClose }: FlyerModalProps) => {
                             <X size={20} />
                         </button>
 
-                        <div className="relative overflow-hidden rounded-md">
+                        <div className="relative overflow-hidden rounded-md group cursor-pointer" onClick={() => window.open(flyerImg, '_blank')}>
                             <img
                                 src={flyerImg}
                                 alt="Hackathon Flyer"
-                                className="w-full h-auto object-contain"
+                                className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105"
                             />
+                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                                <span className="text-white font-display tracking-wider">Click to Zoom</span>
+                            </div>
                         </div>
 
                         <div className="text-center py-4 bg-gradient-to-t from-red-950/50 to-transparent">

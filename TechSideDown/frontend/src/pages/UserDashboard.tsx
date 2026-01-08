@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Loader2, LogOut, User } from 'lucide-react';
+import { Loader2, LogOut, User, AlertTriangle } from 'lucide-react';
 import NeonButton from '@/components/NeonButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -47,6 +47,17 @@ const UserDashboard = () => {
                     </div>
                     <NeonButton variant="outline" onClick={handleLogout} className="gap-2">
                         <LogOut className="h-4 w-4" /> Logout
+                    </NeonButton>
+                </div>
+
+                {/* Rules Banner */}
+                <div className="mb-8 p-4 border border-red-500/50 bg-red-500/10 rounded-lg flex items-center justify-between gap-4 animate-pulse">
+                    <div className="flex items-center gap-3 text-red-400">
+                        <AlertTriangle className="h-6 w-6" />
+                        <span className="font-display tracking-wider">MANDATORY: PLEASE READ THE RULES & REGULATIONS</span>
+                    </div>
+                    <NeonButton onClick={() => navigate('/rules')} className="h-8 text-xs">
+                        View Rules
                     </NeonButton>
                 </div>
 

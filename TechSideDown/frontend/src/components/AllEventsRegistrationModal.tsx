@@ -23,7 +23,7 @@ const events = [
     icon: Brain,
     title: "THE NINA PROJECT",
     category: "AI Exhibition",
-    description: "Jan 30–31 | Main Lawn / IoT Lab. AI, ML, automation models.",
+    description: "Jan 30 | Placement cell. AI, ML, automation models.",
     difficulty: "Expert"
   },
   {
@@ -47,7 +47,7 @@ const events = [
     icon: Code,
     title: "PROJECT HAWKINS",
     category: "Upside-Down Coding",
-    description: "Jan 31. Solo coding with inverted logic.",
+    description: "Jan 31|IT bldg 1st Floor, Solo coding with inverted logic.",
     difficulty: "medium"
   },
   {
@@ -55,7 +55,7 @@ const events = [
     icon: Brain,
     title: "CLOSE THE GATES",
     category: "Capture The Flag",
-    description: "Jan 31. Solo cybersecurity challenge.",
+    description: "Jan 31|IOT LAB Solo cybersecurity challenge.",
     difficulty: "Hard"
   },
   {
@@ -63,7 +63,7 @@ const events = [
     icon: Mic,
     title: "CARNIVAL 011",
     category: "Techstar Unplugged",
-    description: "Jan 31 | Main Lawn. Cultural events & performances.",
+    description: "Jan 31 | Seminar Hall. Cultural events & performances.",
     difficulty: "Medium"
   }
 ];

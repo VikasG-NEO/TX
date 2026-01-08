@@ -22,7 +22,6 @@ const schedule: Record<string, Array<{
   ],
   day2: [
     { time: "08:00", title: "TechXpression × CSI – Hackathon (Continues)", venue: "Whole 1st Floor, IT Building", type: "Hackathon" },
-    { time: "08:00", title: "AI Exhibition – The NINA Project", venue: "Placement Cell", type: "Exhibition" },
     { time: "09:30", title: "Techstar Unplugged – Carnival 011", venue: "Seminar Hall", type: "Carnival" },
     { time: "10:00", title: "Capture the Moment", venue: "Entire Campus", type: "Photography" },
     { time: "10:00", title: "Upside-Down Coding", venue: "Night College Lab", type: "Coding" },

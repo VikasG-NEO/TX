@@ -26,7 +26,7 @@ const Login = () => {
         try {
             await login(formData);
             toast.success('Login successful!');
-            window.location.href = '/#events';
+            navigate('/rules');
         } catch (error) {
             console.error(error);
             toast.error('Invalid credentials');
