@@ -28,7 +28,7 @@ const SponsorsSection = () => {
     <section ref={ref} id="sponsors" className="relative py-32 px-4 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-      
+
       {/* Top Line */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
@@ -75,29 +75,7 @@ const SponsorsSection = () => {
         </motion.div>
 
         {/* Gold Sponsors */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mb-16"
-        >
-          <h3 className="text-center text-sm font-stranger tracking-[0.3em] text-amber-400 mb-8">
-            GOLD SPONSORS
-          </h3>
-          <div className="flex justify-center gap-6 flex-wrap">
-            {sponsors.gold.map((sponsor) => (
-              <motion.div
-                key={sponsor.name}
-                whileHover={{ scale: 1.05 }}
-                className="w-36 h-20 bg-card border border-amber-400/30 rounded-lg flex items-center justify-center hover:border-amber-400/60 transition-colors group"
-              >
-                <span className="text-2xl font-display text-amber-400 group-hover:text-amber-300">
-                  {sponsor.logo}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+
 
 
 
@@ -110,7 +88,7 @@ const SponsorsSection = () => {
         >
           <h3 className="text-2xl font-display mb-4">Join the Portal</h3>
           <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-            Become a sponsor and connect with 5000+ tech enthusiasts. 
+            Become a sponsor and connect with 5000+ tech enthusiasts.
             Open the gateway to the next generation of innovators.
           </p>
           <NeonButton variant="primary">

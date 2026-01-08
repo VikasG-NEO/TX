@@ -14,35 +14,36 @@ const schedule: Record<string, Array<{
   type: string;
 }>> = {
   day1: [
-    { time: "09:00", title: "Techxpression × CSI – Hackathon  ", venue: "1st Floor IT Building", type: "Hackathon (25 hours)" },
-    { time: "10:30", title: "AI Exhibition ", venue: "Main Lawn / IOT Lab / Placement Cell", type: " The NINA Project" },
-    { time: "12:00", title: "Vecna Hunt ", venue: "Venue IT BLDG 208/209", type: "Escape Room " },
-    { time: "14:00", title: "E-Sports Tournament ", venue: "Venue : NR 310 /309", type: "Palace Arcade" },
-    { time: "16:00", title: "Upside-Down Coding ", venue: "Quiz Hall", type: "Quiz" },
-
+    { time: "08:00", title: "TechXpression × CSI – Hackathon", venue: "Whole 1st Floor, IT Building", type: "Hackathon" },
+    { time: "08:00", title: "AI Exhibition – The NINA Project", venue: "Placement Cell", type: "Exhibition" },
+    { time: "10:00", title: "E-Sports Tournament", venue: "NR 309 / 310", type: "Games" },
+    { time: "10:00", title: "Capture the Moment", venue: "Entire Campus", type: "Photography" },
+    { time: "11:30", title: "Escape Room – Vecna Hunt", venue: "Room 208 / 209", type: "Escape Room" },
   ],
   day2: [
-
-
-    { time: "15:00", title: "Capture the Flag ", venue: "Main Arena", type: "Close the Gates" },
-    { time: "17:00", title: "Upside-Down Coding ", venue: "Bvoc Lab", type: "Carnival 011  " },
-    { time: "19:00", title: "Techstar Unplugged ", venue: "Main Lawn / Seminar Hall", type: "Ceremony" },
-    { time: "21:00", title: "Award Ceremony", venue: "Seminar Hall", type: "Cere" },
+    { time: "08:00", title: "TechXpression × CSI – Hackathon (Continues)", venue: "Whole 1st Floor, IT Building", type: "Hackathon" },
+    { time: "08:00", title: "AI Exhibition – The NINA Project", venue: "Placement Cell", type: "Exhibition" },
+    { time: "09:30", title: "Techstar Unplugged – Carnival 011", venue: "Seminar Hall", type: "Carnival" },
+    { time: "10:00", title: "Capture the Moment", venue: "Entire Campus", type: "Photography" },
+    { time: "10:00", title: "Upside-Down Coding", venue: "Night College Lab", type: "Coding" },
+    { time: "11:00", title: "Capture the Flag", venue: "IoT Lab", type: "CTF" },
+    { time: "11:30", title: "Escape Room – Vecna Hunt", venue: "Room 208 / 209", type: "Escape Room" },
+    { time: "6:00 pm", title: "Award Ceremony", venue: "Seminar Hall", type: "Ceremony" },
   ],
 };
 
 const typeColors: Record<string, string> = {
   "Ceremony": "bg-purple-500/20 text-purple-400",
   "Hackathon": "bg-primary/20 text-primary",
-  "Talk": "bg-blue-500/20 text-blue-400",
-  "Workshop": "bg-green-500/20 text-green-400",
-  "Gaming": "bg-orange-500/20 text-orange-400",
-  "Social": "bg-pink-500/20 text-pink-400",
-  "Quiz": "bg-yellow-500/20 text-yellow-400",
-  "Design": "bg-cyan-500/20 text-cyan-400",
-  "Speaking": "bg-indigo-500/20 text-indigo-400",
-  "Demo": "bg-teal-500/20 text-teal-400",
-  "Championship": "bg-amber-500/20 text-amber-400",
+  "Exhibition": "bg-blue-500/20 text-blue-400",
+  "Escape Room": "bg-red-500/20 text-red-400",
+  "Games": "bg-orange-500/20 text-orange-400",
+  "Carnival": "bg-pink-500/20 text-pink-400",
+  "Coding": "bg-yellow-500/20 text-yellow-400",
+  "CTF": "bg-cyan-500/20 text-cyan-400",
+  "Photography": "bg-indigo-500/20 text-indigo-400",
+  "Demo": "bg-teal-500/20 text-teal-400", // retained
+  "Championship": "bg-amber-500/20 text-amber-400", // retained
 };
 
 const ScheduleSection = () => {
